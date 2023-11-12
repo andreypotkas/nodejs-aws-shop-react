@@ -1,3 +1,8 @@
+# Task
+
+- s3 http://andreypotkas-site-bucket-name.s3-website-eu-west-1.amazonaws.com/
+- cloudfront https://d2t6k1jb81064z.cloudfront.net/
+
 # React-shop-cloudfront
 
 This is frontend starter project for nodejs-aws mentoring program. It uses the following technologies:

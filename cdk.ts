@@ -42,6 +42,8 @@ export class CdkExampleS3CloudfrontStack extends Stack {
     new s3deploy.BucketDeployment(this, "DeployWebsite", {
       sources: [s3deploy.Source.asset("./dist")],
       destinationBucket: siteBucket,
+      // distribution,
+      // distributionPaths: ["/*"],
     });
   }
 }
