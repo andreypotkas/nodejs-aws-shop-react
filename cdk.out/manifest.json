@@ -1,0 +1,149 @@
+{
+  "version": "35.0.0",
+  "artifacts": {
+    "AndreyPotkasRSSFrontStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AndreyPotkasRSSFrontStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "AndreyPotkasRSSFrontStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/eu-west-1",
+      "properties": {
+        "templateFile": "AndreyPotkasRSSFrontStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-eu-west-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-eu-west-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1/e7ef99c823503b9b6b1a15c2c60d4ab1d3484ff8368bec8e37202f69af63c500.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "AndreyPotkasRSSFrontStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-eu-west-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "AndreyPotkasRSSFrontStack.assets"
+      ],
+      "metadata": {
+        "/AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AndreyPotkasRSSFrontBucketC8EFE77D"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AndreyPotkasRSSFrontBucketPolicy9FE2301B"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AndreyPotkasRSSFrontBucketAutoDeleteObjectsCustomResourceF4968ACE"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucketOAI/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AndreyPotkasRSSFrontBucketOAI7977F5AE"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDistribution/CFDistribution": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AndreyPotkasRSSFrontDistributionCFDistribution99F0B79E"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/AwsCliLayer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AndreyPotkasRSSFrontDeploymentAwsCliLayerCDFAEB5A"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/CustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AndreyPotkasRSSFrontDeploymentCustomResource4B496C36"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/S3bucket Url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "S3bucketUrl"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/Cloudfront Url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CloudfrontUrl"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AndreyPotkasRSSFrontStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AndreyPotkasRSSFrontStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
