@@ -4,25 +4,26 @@
     "id": "App",
     "path": "",
     "children": {
-      "CdkExampleS3CloudfrontStack": {
-        "id": "CdkExampleS3CloudfrontStack",
-        "path": "CdkExampleS3CloudfrontStack",
+      "AndreyPotkasRSSFrontStack": {
+        "id": "AndreyPotkasRSSFrontStack",
+        "path": "AndreyPotkasRSSFrontStack",
         "children": {
-          "AP-site-bucket": {
-            "id": "AP-site-bucket",
-            "path": "CdkExampleS3CloudfrontStack/AP-site-bucket",
+          "AndreyPotkasRSSFrontBucket": {
+            "id": "AndreyPotkasRSSFrontBucket",
+            "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket",
             "children": {
               "Resource": {
                 "id": "Resource",
-                "path": "CdkExampleS3CloudfrontStack/AP-site-bucket/Resource",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                   "aws:cdk:cloudformation:props": {
-                    "accessControl": "BucketOwnerFullControl",
-                    "bucketName": "andreypotkas-site-bucket-name",
+                    "bucketName": "andrey-potkas-rss-front",
                     "publicAccessBlockConfiguration": {
                       "blockPublicAcls": true,
-                      "ignorePublicAcls": true
+                      "blockPublicPolicy": true,
+                      "ignorePublicAcls": true,
+                      "restrictPublicBuckets": true
                     },
                     "tags": [
                       {
@@ -30,13 +31,12 @@
                         "value": "true"
                       },
                       {
-                        "key": "aws-cdk:cr-owned:e6ef7eef",
+                        "key": "aws-cdk:cr-owned:381d1642",
                         "value": "true"
                       }
                     ],
                     "websiteConfiguration": {
-                      "indexDocument": "index.html",
-                      "errorDocument": "index.html"
+                      "indexDocument": "index.html"
                     }
                   }
                 },
@@ -47,40 +47,19 @@
               },
               "Policy": {
                 "id": "Policy",
-                "path": "CdkExampleS3CloudfrontStack/AP-site-bucket/Policy",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket/Policy",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "CdkExampleS3CloudfrontStack/AP-site-bucket/Policy/Resource",
+                    "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket/Policy/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
                       "aws:cdk:cloudformation:props": {
                         "bucket": {
-                          "Ref": "APsitebucket841A1663"
+                          "Ref": "AndreyPotkasRSSFrontBucketC8EFE77D"
                         },
                         "policyDocument": {
                           "Statement": [
-                            {
-                              "Action": "s3:GetObject",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "AWS": "*"
-                              },
-                              "Resource": {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    {
-                                      "Fn::GetAtt": [
-                                        "APsitebucket841A1663",
-                                        "Arn"
-                                      ]
-                                    },
-                                    "/*"
-                                  ]
-                                ]
-                              }
-                            },
                             {
                               "Action": [
                                 "s3:PutBucketPolicy",
@@ -100,7 +79,7 @@
                               "Resource": [
                                 {
                                   "Fn::GetAtt": [
-                                    "APsitebucket841A1663",
+                                    "AndreyPotkasRSSFrontBucketC8EFE77D",
                                     "Arn"
                                   ]
                                 },
@@ -110,7 +89,7 @@
                                     [
                                       {
                                         "Fn::GetAtt": [
-                                          "APsitebucket841A1663",
+                                          "AndreyPotkasRSSFrontBucketC8EFE77D",
                                           "Arn"
                                         ]
                                       },
@@ -119,6 +98,70 @@
                                   ]
                                 }
                               ]
+                            },
+                            {
+                              "Action": [
+                                "s3:GetObject*",
+                                "s3:GetBucket*",
+                                "s3:List*"
+                              ],
+                              "Effect": "Allow",
+                              "Principal": {
+                                "CanonicalUser": {
+                                  "Fn::GetAtt": [
+                                    "AndreyPotkasRSSFrontBucketOAI7977F5AE",
+                                    "S3CanonicalUserId"
+                                  ]
+                                }
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "AndreyPotkasRSSFrontBucketC8EFE77D",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "AndreyPotkasRSSFrontBucketC8EFE77D",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Action": "s3:GetObject",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "CanonicalUser": {
+                                  "Fn::GetAtt": [
+                                    "AndreyPotkasRSSFrontBucketOAI7977F5AE",
+                                    "S3CanonicalUserId"
+                                  ]
+                                }
+                              },
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "AndreyPotkasRSSFrontBucketC8EFE77D",
+                                        "Arn"
+                                      ]
+                                    },
+                                    "/*"
+                                  ]
+                                ]
+                              }
                             }
                           ],
                           "Version": "2012-10-17"
@@ -138,11 +181,11 @@
               },
               "AutoDeleteObjectsCustomResource": {
                 "id": "AutoDeleteObjectsCustomResource",
-                "path": "CdkExampleS3CloudfrontStack/AP-site-bucket/AutoDeleteObjectsCustomResource",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket/AutoDeleteObjectsCustomResource",
                 "children": {
                   "Default": {
                     "id": "Default",
-                    "path": "CdkExampleS3CloudfrontStack/AP-site-bucket/AutoDeleteObjectsCustomResource/Default",
+                    "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucket/AutoDeleteObjectsCustomResource/Default",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
                       "version": "2.106.1"
@@ -162,11 +205,11 @@
           },
           "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
             "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
-            "path": "CdkExampleS3CloudfrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "path": "AndreyPotkasRSSFrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider",
             "children": {
               "Staging": {
                 "id": "Staging",
-                "path": "CdkExampleS3CloudfrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                "path": "AndreyPotkasRSSFrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.AssetStaging",
                   "version": "2.106.1"
@@ -174,7 +217,7 @@
               },
               "Role": {
                 "id": "Role",
-                "path": "CdkExampleS3CloudfrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                "path": "AndreyPotkasRSSFrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
                   "version": "2.106.1"
@@ -182,7 +225,7 @@
               },
               "Handler": {
                 "id": "Handler",
-                "path": "CdkExampleS3CloudfrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                "path": "AndreyPotkasRSSFrontStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
                   "version": "2.106.1"
@@ -194,76 +237,103 @@
               "version": "2.106.1"
             }
           },
-          "Bucket": {
-            "id": "Bucket",
-            "path": "CdkExampleS3CloudfrontStack/Bucket",
+          "AndreyPotkasRSSFrontBucketOAI": {
+            "id": "AndreyPotkasRSSFrontBucketOAI",
+            "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucketOAI",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontBucketOAI/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+                  "aws:cdk:cloudformation:props": {
+                    "cloudFrontOriginAccessIdentityConfig": {
+                      "comment": "Allows CloudFront to reach the bucket"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudfront.CfnCloudFrontOriginAccessIdentity",
+                  "version": "2.106.1"
+                }
+              }
+            },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
+              "fqn": "aws-cdk-lib.aws_cloudfront.OriginAccessIdentity",
               "version": "2.106.1"
             }
           },
-          "SiteDistribution": {
-            "id": "SiteDistribution",
-            "path": "CdkExampleS3CloudfrontStack/SiteDistribution",
+          "AndreyPotkasRSSFrontDistribution": {
+            "id": "AndreyPotkasRSSFrontDistribution",
+            "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDistribution",
             "children": {
-              "Origin1": {
-                "id": "Origin1",
-                "path": "CdkExampleS3CloudfrontStack/SiteDistribution/Origin1",
-                "constructInfo": {
-                  "fqn": "constructs.Construct",
-                  "version": "10.3.0"
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "CdkExampleS3CloudfrontStack/SiteDistribution/Resource",
+              "CFDistribution": {
+                "id": "CFDistribution",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDistribution/CFDistribution",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
                   "aws:cdk:cloudformation:props": {
                     "distributionConfig": {
                       "enabled": true,
+                      "defaultRootObject": "index.html",
+                      "httpVersion": "http2",
+                      "priceClass": "PriceClass_100",
+                      "ipv6Enabled": true,
+                      "customErrorResponses": [
+                        {
+                          "errorCode": 404,
+                          "responseCode": 200,
+                          "responsePagePath": "/index.html"
+                        }
+                      ],
                       "origins": [
                         {
+                          "id": "origin1",
                           "domainName": {
-                            "Fn::Select": [
-                              2,
-                              {
-                                "Fn::Split": [
-                                  "/",
-                                  {
-                                    "Fn::GetAtt": [
-                                      "APsitebucket841A1663",
-                                      "WebsiteURL"
-                                    ]
-                                  }
-                                ]
-                              }
+                            "Fn::GetAtt": [
+                              "AndreyPotkasRSSFrontBucketC8EFE77D",
+                              "RegionalDomainName"
                             ]
                           },
-                          "id": "CdkExampleS3CloudfrontStackSiteDistributionOrigin1C5B97EED",
-                          "customOriginConfig": {
-                            "originSslProtocols": [
-                              "TLSv1.2"
-                            ],
-                            "originProtocolPolicy": "http-only"
-                          }
+                          "s3OriginConfig": {
+                            "originAccessIdentity": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "origin-access-identity/cloudfront/",
+                                  {
+                                    "Ref": "AndreyPotkasRSSFrontBucketOAI7977F5AE"
+                                  }
+                                ]
+                              ]
+                            }
+                          },
+                          "connectionAttempts": 3,
+                          "connectionTimeout": 10
                         }
                       ],
                       "defaultCacheBehavior": {
-                        "pathPattern": "*",
-                        "targetOriginId": "CdkExampleS3CloudfrontStackSiteDistributionOrigin1C5B97EED",
                         "allowedMethods": [
                           "GET",
-                          "HEAD",
-                          "OPTIONS"
+                          "HEAD"
                         ],
-                        "cachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+                        "cachedMethods": [
+                          "GET",
+                          "HEAD"
+                        ],
                         "compress": true,
+                        "forwardedValues": {
+                          "queryString": false,
+                          "cookies": {
+                            "forward": "none"
+                          }
+                        },
+                        "targetOriginId": "origin1",
                         "viewerProtocolPolicy": "redirect-to-https"
                       },
-                      "defaultRootObject": "index.html",
-                      "httpVersion": "http2",
-                      "ipv6Enabled": true
+                      "viewerCertificate": {
+                        "cloudFrontDefaultCertificate": true
+                      }
                     }
                   }
                 },
@@ -274,33 +344,25 @@
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_cloudfront.Distribution",
+              "fqn": "aws-cdk-lib.aws_cloudfront.CloudFrontWebDistribution",
               "version": "2.106.1"
             }
           },
-          "DistributionId": {
-            "id": "DistributionId",
-            "path": "CdkExampleS3CloudfrontStack/DistributionId",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.106.1"
-            }
-          },
-          "DeployWebsite": {
-            "id": "DeployWebsite",
-            "path": "CdkExampleS3CloudfrontStack/DeployWebsite",
+          "AndreyPotkasRSSFrontDeployment": {
+            "id": "AndreyPotkasRSSFrontDeployment",
+            "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment",
             "children": {
               "AwsCliLayer": {
                 "id": "AwsCliLayer",
-                "path": "CdkExampleS3CloudfrontStack/DeployWebsite/AwsCliLayer",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/AwsCliLayer",
                 "children": {
                   "Code": {
                     "id": "Code",
-                    "path": "CdkExampleS3CloudfrontStack/DeployWebsite/AwsCliLayer/Code",
+                    "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/AwsCliLayer/Code",
                     "children": {
                       "Stage": {
                         "id": "Stage",
-                        "path": "CdkExampleS3CloudfrontStack/DeployWebsite/AwsCliLayer/Code/Stage",
+                        "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/AwsCliLayer/Code/Stage",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.AssetStaging",
                           "version": "2.106.1"
@@ -308,7 +370,7 @@
                       },
                       "AssetBucket": {
                         "id": "AssetBucket",
-                        "path": "CdkExampleS3CloudfrontStack/DeployWebsite/AwsCliLayer/Code/AssetBucket",
+                        "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/AwsCliLayer/Code/AssetBucket",
                         "constructInfo": {
                           "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                           "version": "2.106.1"
@@ -322,13 +384,13 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "CdkExampleS3CloudfrontStack/DeployWebsite/AwsCliLayer/Resource",
+                    "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/AwsCliLayer/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::Lambda::LayerVersion",
                       "aws:cdk:cloudformation:props": {
                         "content": {
                           "s3Bucket": {
-                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1"
                           },
                           "s3Key": "3fb6287214999ddeafa7cd0e3e58bc5144c8678bb720f3b5e45e8fd32f333eb3.zip"
                         },
@@ -348,7 +410,7 @@
               },
               "CustomResourceHandler": {
                 "id": "CustomResourceHandler",
-                "path": "CdkExampleS3CloudfrontStack/DeployWebsite/CustomResourceHandler",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/CustomResourceHandler",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_lambda.SingletonFunction",
                   "version": "2.106.1"
@@ -356,11 +418,11 @@
               },
               "Asset1": {
                 "id": "Asset1",
-                "path": "CdkExampleS3CloudfrontStack/DeployWebsite/Asset1",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/Asset1",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "CdkExampleS3CloudfrontStack/DeployWebsite/Asset1/Stage",
+                    "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/Asset1/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.106.1"
@@ -368,7 +430,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "CdkExampleS3CloudfrontStack/DeployWebsite/Asset1/AssetBucket",
+                    "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/Asset1/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.106.1"
@@ -382,11 +444,11 @@
               },
               "CustomResource": {
                 "id": "CustomResource",
-                "path": "CdkExampleS3CloudfrontStack/DeployWebsite/CustomResource",
+                "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/CustomResource",
                 "children": {
                   "Default": {
                     "id": "Default",
-                    "path": "CdkExampleS3CloudfrontStack/DeployWebsite/CustomResource/Default",
+                    "path": "AndreyPotkasRSSFrontStack/AndreyPotkasRSSFrontDeployment/CustomResource/Default",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnResource",
                       "version": "2.106.1"
@@ -406,15 +468,15 @@
           },
           "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C": {
             "id": "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
-            "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
+            "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C",
             "children": {
               "ServiceRole": {
                 "id": "ServiceRole",
-                "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole",
+                "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole",
                 "children": {
                   "ImportServiceRole": {
                     "id": "ImportServiceRole",
-                    "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/ImportServiceRole",
+                    "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/ImportServiceRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.106.1"
@@ -422,7 +484,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource",
+                    "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -461,11 +523,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy",
+                    "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource",
+                        "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -489,7 +551,7 @@
                                           },
                                           ":s3:::",
                                           {
-                                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1"
                                           }
                                         ]
                                       ]
@@ -504,7 +566,7 @@
                                           },
                                           ":s3:::",
                                           {
-                                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                                            "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1"
                                           },
                                           "/*"
                                         ]
@@ -529,7 +591,7 @@
                                   "Resource": [
                                     {
                                       "Fn::GetAtt": [
-                                        "APsitebucket841A1663",
+                                        "AndreyPotkasRSSFrontBucketC8EFE77D",
                                         "Arn"
                                       ]
                                     },
@@ -539,7 +601,7 @@
                                         [
                                           {
                                             "Fn::GetAtt": [
-                                              "APsitebucket841A1663",
+                                              "AndreyPotkasRSSFrontBucketC8EFE77D",
                                               "Arn"
                                             ]
                                           },
@@ -548,6 +610,14 @@
                                       ]
                                     }
                                   ]
+                                },
+                                {
+                                  "Action": [
+                                    "cloudfront:GetInvalidation",
+                                    "cloudfront:CreateInvalidation"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
                                 }
                               ],
                               "Version": "2012-10-17"
@@ -579,11 +649,11 @@
               },
               "Code": {
                 "id": "Code",
-                "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code",
+                "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/Stage",
+                    "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.106.1"
@@ -591,7 +661,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/AssetBucket",
+                    "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.106.1"
@@ -605,13 +675,13 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "CdkExampleS3CloudfrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
+                "path": "AndreyPotkasRSSFrontStack/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "s3Bucket": {
-                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-eu-west-1"
                       },
                       "s3Key": "9eb41a5505d37607ac419321497a4f8c21cf0ee1f9b4a6b29aa04301aea5c7fd.zip"
                     },
@@ -623,7 +693,7 @@
                     "handler": "index.handler",
                     "layers": [
                       {
-                        "Ref": "DeployWebsiteAwsCliLayer17DBC421"
+                        "Ref": "AndreyPotkasRSSFrontDeploymentAwsCliLayerCDFAEB5A"
                       }
                     ],
                     "role": {
@@ -647,23 +717,31 @@
               "version": "2.106.1"
             }
           },
+          "S3bucket Url": {
+            "id": "S3bucket Url",
+            "path": "AndreyPotkasRSSFrontStack/S3bucket Url",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.106.1"
+            }
+          },
+          "Cloudfront Url": {
+            "id": "Cloudfront Url",
+            "path": "AndreyPotkasRSSFrontStack/Cloudfront Url",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.106.1"
+            }
+          },
           "CDKMetadata": {
             "id": "CDKMetadata",
-            "path": "CdkExampleS3CloudfrontStack/CDKMetadata",
+            "path": "AndreyPotkasRSSFrontStack/CDKMetadata",
             "children": {
               "Default": {
                 "id": "Default",
-                "path": "CdkExampleS3CloudfrontStack/CDKMetadata/Default",
+                "path": "AndreyPotkasRSSFrontStack/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.106.1"
-                }
-              },
-              "Condition": {
-                "id": "Condition",
-                "path": "CdkExampleS3CloudfrontStack/CDKMetadata/Condition",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnCondition",
                   "version": "2.106.1"
                 }
               }
@@ -675,7 +753,7 @@
           },
           "BootstrapVersion": {
             "id": "BootstrapVersion",
-            "path": "CdkExampleS3CloudfrontStack/BootstrapVersion",
+            "path": "AndreyPotkasRSSFrontStack/BootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
               "version": "2.106.1"
@@ -683,7 +761,7 @@
           },
           "CheckBootstrapVersion": {
             "id": "CheckBootstrapVersion",
-            "path": "CdkExampleS3CloudfrontStack/CheckBootstrapVersion",
+            "path": "AndreyPotkasRSSFrontStack/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
               "version": "2.106.1"
